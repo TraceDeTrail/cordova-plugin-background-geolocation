@@ -181,7 +181,7 @@ public class DistanceFilterLocationProvider extends AbstractLocationProvider imp
         logger.info("Setting pace: {}", value);
 
         Boolean wasMoving   = isMoving;
-        isMoving            = value;
+        isMoving            = true;
         isAcquiringStationaryLocation = false;
         isAcquiringSpeed    = false;
         stationaryLocation  = null;
@@ -339,9 +339,9 @@ public class DistanceFilterLocationProvider extends AbstractLocationProvider imp
                 scaledDistanceFilter = newDistanceFilter;
                 setPace(true);
             }
-            if (location.distanceTo(lastLocation) < mConfig.getDistanceFilter()) {
-                return;
-            }
+          //  if (location.distanceTo(lastLocation) < mConfig.getDistanceFilter()) {
+            //    return;
+          //  }
         } else if (stationaryLocation != null) {
             return;
         }
@@ -356,12 +356,7 @@ public class DistanceFilterLocationProvider extends AbstractLocationProvider imp
     }
 
     private Integer calculateDistanceFilter(Float speed) {
-        Double newDistanceFilter = (double) mConfig.getDistanceFilter();
-        if (speed < 100) {
-            float roundedDistanceFilter = (round(speed / 5) * 5);
-            newDistanceFilter = pow(roundedDistanceFilter, 2) + (double) mConfig.getDistanceFilter();
-        }
-        return (newDistanceFilter.intValue() < 1000) ? newDistanceFilter.intValue() : 1000;
+        return config.getDistanceFilter();
     }
 
     private void startMonitoringStationaryRegion(Location location) {

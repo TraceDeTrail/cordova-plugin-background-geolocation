@@ -356,8 +356,7 @@ public class DistanceFilterLocationProvider extends AbstractLocationProvider imp
     }
 
     private Integer calculateDistanceFilter(Float speed) {
-        Double newDistanceFilter = (double) mConfig.getDistanceFilter();
-        return newDistanceFilter;
+        return mConfig.getDistanceFilter();
     }
 
     private void startMonitoringStationaryRegion(Location location) {
